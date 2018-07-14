@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CourseDetailsWindow</class>
+ <widget class="QMainWindow" name="CourseDetailsWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>999</width>
+    <height>632</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>999</width>
+    <height>632</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>...</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="tv_title">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>电路原理</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tv_desc">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>163</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>课程类型: 理论课
+课程属性: 专业基础课/技术基础课
+课程学时: 72.0
+学科门类: 理学
+专业大类: 数学类
+专业类: 数学与应用数学
+适用专业: 数学与应用数学、信息与计算学科</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_download">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>10</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Download</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>10</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cbx_typeFilter">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>10</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Videos</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Documents</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTreeWidget" name="tw_courseDetails">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>40</y>
+      <width>781</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <column>
+     <property name="text">
+      <string notr="true">1</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QTreeView" name="tv_courseDetails">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>270</y>
+      <width>781</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>460</y>
+      <width>161</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>161</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="btn_otherResources">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>120</y>
+       <width>158</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>其他资源</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_testPapers">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>158</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>测试试卷</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_assignments">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>158</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>习题作业</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_chapters">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>158</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>课程章节</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="tv_school">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>140</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>清华大学</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_logo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>160</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btn_chapters</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_t1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>23</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_assignments</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_t2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>362</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>566</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_testPapers</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_t3()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>390</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>642</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_otherResources</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_t4()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>433</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>719</x>
+     <y>12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbx_typeFilter</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>cbx_typeFilter(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>925</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>891</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tv_courseDetails</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>resourcesList_ctxMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>415</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>138</x>
+     <y>590</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>btn_t1()</slot>
+  <slot>btn_t2()</slot>
+  <slot>btn_t3()</slot>
+  <slot>btn_t4()</slot>
+  <slot>cbx_typeFilter(int)</slot>
+  <slot>resourcesList_ctxMenu(QPoint)</slot>
+ </slots>
+</ui>
