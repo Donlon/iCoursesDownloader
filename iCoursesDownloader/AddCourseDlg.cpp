@@ -1,6 +1,6 @@
 #include "AddCourseDlg.h"
 #include "CoursesWnd.h"
-#include "StorageManager.h"
+#include "DataManager.h"
 #include "CourseDetailsWnd.h"
 
 QString strGetIntroductionURL("http://mobile.icourses.cn/hep-mobile/sword/app/share/intro/getIntroduction");

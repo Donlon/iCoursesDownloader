@@ -1,11 +1,13 @@
 #pragma once
 #include "qitemselectionmodel.h"
+#include "CourseResourcesModel.h"
+
 class CourseResourcesSelectionModel :
 	public QItemSelectionModel
 {
 public:
-    explicit CourseResourcesSelectionModel(QAbstractItemModel *model = 0): QItemSelectionModel(model){;};
-    explicit CourseResourcesSelectionModel(QAbstractItemModel *model, QObject *parent): QItemSelectionModel(model, parent){;};
+    explicit CourseResourcesSelectionModel(CourseResourcesModel *model = 0): QItemSelectionModel(model), model(model), treeRoot(model->treeRoot){;};
+    explicit CourseResourcesSelectionModel(CourseResourcesModel *model, QObject *parent): QItemSelectionModel(model, parent){;};
 	~CourseResourcesSelectionModel(void);
     Q_INVOKABLE bool isSelected(const QModelIndex& index) const;
 public Q_SLOTS:
@@ -16,5 +18,8 @@ public Q_SLOTS:
 	virtual void reset() override;
 
 	virtual void clearCurrentIndex() override;
+private:
+	CourseResourcesModel *model;
+	CourseResourcesTree *treeRoot;
 };
 

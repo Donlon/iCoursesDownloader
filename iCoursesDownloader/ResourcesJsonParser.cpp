@@ -1,30 +1,25 @@
 #include "ResourcesJsonParser.h"
-#include "StorageManager.h"
-
-#include <QFile>
+#include "DataManager.h"
 #include <QJsonParseError>
-#include <QJsonArray>
 #include <QJsonObject>
-#include <QJsonValue>
-#include <QString>
-#include "CharptersTreeItem.h"
+#include <QJsonArray>
+#include "CourseResourcesTree.h"
 
 QFile *linksFile = nullptr;
-#define _ERROR(a) ;;
+#define _ERROR(a) ;Q_ASSERT_X(false, "ResourcesJsonParser", a);;
 
-bool ResourcesJsonParser::parseFileToTreeWidget(QString filePath, QTreeWidget *treeWidget)
-{
-	linksFile = new QFile(StorageManager::getLocalFilePath(filePath)+"_links");
+void ResourcesJsonParser::parse(QString filePath){
+	/*linksFile = new QFile(StorageManager::getLocalFilePath(filePath)+"_links");
 	
     if (!linksFile->open(QIODevice::WriteOnly)) {
 		return false;
-    }
+    }*/
 
 	QFile charptersJsonFile(
 		StorageManager::getLocalFilePath(filePath));
 	
-    if (!charptersJsonFile.open(QIODevice::ReadOnly)) {
-		return false;//TODO: Error alert.
+    if (!charptersJsonFile.open(QIODevice::ReadOnly)){
+		return;//TODO: Error alert.
     }
 
 	QJsonParseError jsonErr;
@@ -32,107 +27,113 @@ bool ResourcesJsonParser::parseFileToTreeWidget(QString filePath, QTreeWidget *t
 	
 	if(jsonDoc.isNull()){
 		_ERROR("JSON is empty.");		
-		return false;
+		return;
 	}
 
-	if(jsonErr.error!=QJsonParseError::NoError)	{
+	if(jsonErr.error != QJsonParseError::NoError){
 		_ERROR("QJsonParseError parse error.");
-		return false;
+		return;
 	}
 	if(!jsonDoc.isObject())	{
 		_ERROR("JSON format error.");
-		return false;
+		return;
 	}
 
 	QJsonObject rootObj = jsonDoc.object();
 	if(!rootObj.contains("success")){
 		_ERROR("JSON format error.");
-		return false;
-	}
-
-	if(!rootObj.value("success").toBool(false))	{
-		_ERROR("Request didn't succeed.");
-		return false;
-	}
-
-	
-	if(!rootObj.value("data").isArray()){
-		_ERROR("JSON format error.");
-		return false;
-	}
-	QJsonArray data = rootObj.value("data").toArray();
-
-    foreach (QJsonValue &v, data){
-    	recursionParseObject(v, treeWidget, true);
-    }
-
-	return true;
-}
-
-void ResourcesJsonParser::recursionParseObject(QJsonValue &json, QObject *parentNode, bool isTop = false){
-	if(!json.isObject()){
-		Q_ASSERT(false);
 		return;
 	}
 
-	QJsonObject itemObj = json.toObject();
-
-	CharptersTreeItem* newNodeItem = nullptr;
-	if(isTop){
-		newNodeItem = new CharptersTreeItem(qobject_cast<QTreeWidget*>(parentNode));
-	}else{
-		newNodeItem = new CharptersTreeItem(qobject_cast<CharptersTreeItem*>(parentNode));
+	if(!rootObj.value("success").toBool(false))	{
+		_ERROR("Request isn't succeed.");
+		return;
 	}
-
-	if(itemObj.value("selfId").isString()){
-		newNodeItem->selfId = itemObj.value("selfId").toString();
-	}else	{
-		//;
+	
+	if(!rootObj.value("data").isArray()){
+		_ERROR("JSON format error.");
+		return;
 	}
+	QJsonArray data = rootObj.value("data").toArray();
 
-	if(itemObj.value("title").isString()){
-		if(isTop){
-			newNodeItem->setText(0,
-				QString::fromLocal8Bit("µÚ%1ÕÂ ").arg(newNodeItem->selfId) + itemObj.value("title").toString());
-			newNodeItem->setExpanded(true);
-		}else{
-			newNodeItem->setText(0, 
-				(reinterpret_cast<CharptersTreeItem*>(newNodeItem->parent()))->selfId+
-				"."+
-				newNodeItem->selfId+
-				" "+itemObj.value("title").toString());
+	CourseResourcesTree *rootTree = new CourseResourcesTree("");//TODO: empty constructor
+
+    recursionParseObject(data, rootTree);
+
+	resultTreeNode = rootTree;
+}
+
+//TODO£ºreport invalidated items
+void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, CourseResourcesTree *parentNode, int depth){
+
+	foreach (QJsonValue& item, jsonArrayNode){
+		if(!item.isObject()){
+			continue;
 		}
+		QJsonObject itemObj = item.toObject();
 
-	}
 
-	if(itemObj.value("childList").isArray()){
-		foreach (QJsonValue& item, itemObj.value("childList").toArray()){
-			recursionParseObject(item, newNodeItem);
-		}
-	}
+		if(itemObj.value("childList").isArray() || itemObj.value("resList").isArray()){//Indicating that this node is actually a folder
 
-	if(itemObj.value("resList").isArray()){
-		int resNo = 1;
-		foreach (QJsonValue& item, itemObj.value("resList").toArray()){
-			if(!item.isObject()){
+			//demanding
+			if(!itemObj.value("selfId").isString() || !itemObj.value("title").isString()){
+				//invalidated
 				continue;
 			}
+
+			CourseResourcesTree *folderNode = new CourseResourcesTree(parentNode);
+
+			folderNode->index = itemObj.value("selfId").toString().toInt();//TODO: getString function implementation
+			folderNode->type = CourseResourcesTree::Folder;
+			folderNode->depth = depth + 1;
+
+			if(depth == 0){
+				folderNode->visualName = QString::fromLocal8Bit("µÚ%1ÕÂ ").arg(folderNode->index) + itemObj.value("title").toString();
+				folderNode->expandedInTreeView = true;
+			}else{
+				QJsonValue t = itemObj.value("title");
+				folderNode->visualName = QString::fromLocal8Bit("%1.%2 %3").arg(folderNode->parent->index)
+																		   .arg(folderNode->index)
+																		   .arg(itemObj.value("title").toString());
+					
+			}
+
+			if(!itemObj.value("childList").toArray().empty()){
+				recursionParseObject(itemObj.value("childList").toArray(), folderNode, depth + 1);
+			}
+
+
+			//Children which is file entity exist, and create node object for them
+			if(itemObj.value("resList").isArray()){
+				int resNo = 1;
+				foreach (QJsonValue& item, itemObj.value("resList").toArray()){
+					if(!item.isObject()){
+						continue;
+					}
+					QJsonObject resObj = item.toObject();
 			
-			QTreeWidgetItem* newResItem = new QTreeWidgetItem(newNodeItem);
-			QJsonObject resObj = item.toObject();
+					CourseResourcesTree *fileNode = new CourseResourcesTree(folderNode);
 			
-			if(resObj.value("title").isString()){
-				newResItem->setText(0, QString("%1. ").arg(resNo) + resObj.value("title").toString());
+					if(!resObj.value("title").isString()
+						|| !resObj.value("resSize").isString()
+						|| !resObj.value("mediaType").isString()){
+						continue;
+					}
+
+					fileNode->visualName = QString("%1. ").arg(resNo) + resObj.value("title").toString();
+					fileNode->size = resObj.value("resSize").toString().toInt();
+					//fileNode->  resObj.value("mediaType").toString());
+					fileNode->type = CourseResourcesTree::Other;
+					fileNode->depth = depth + 1;
+
+					resNo++;
+				}
 			}
-			if(resObj.value("resSize").isString()){
-				newResItem->setText(1, fileSizeToString(resObj.value("resSize").toString().toInt()));
-			}
-			if(resObj.value("mediaType").isString()){
-				newResItem->setText(2, resObj.value("mediaType").toString());
-			}
-			resNo++;
 		}
+		
+
 	}
+	
 }
 
 /*QTreeWidgetItem* convertJsonItemToWidgetItem(QJsonObject &json){

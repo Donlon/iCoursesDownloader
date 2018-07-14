@@ -2,8 +2,8 @@
 #pragma once
 
 #include <QString>
-#include "CourseItemWidget.h"
 #include <QListWidgetItem>
+#include "CourseItemWidget.h"
 
 
 class Course{

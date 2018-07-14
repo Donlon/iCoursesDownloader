@@ -1,11 +1,11 @@
 #pragma once
 #include <QAbstractItemModel>
-#include "CourseSourcesTree.h"
+#include "CourseResourcesTree.h"
 
 class CourseResourcesModel : public QAbstractItemModel
 {
 public:
-	CourseResourcesModel(CourseSourcesTree* root, QObject* parent = 0);
+	CourseResourcesModel(CourseResourcesTree* root, QObject* parent = 0);
 
 	Qt::ItemFlags flags(const QModelIndex& index) const;
 	QVariant data(const QModelIndex& index, int role) const;
@@ -16,8 +16,8 @@ public:
 	QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
 	QModelIndex parent(const QModelIndex& index) const;
 
+	CourseResourcesTree *treeRoot;
 private:
 	//QObject* m_root;
-	CourseSourcesTree *treeRoot;
 
 };

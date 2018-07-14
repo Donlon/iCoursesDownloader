@@ -1,9 +1,9 @@
-#include "CourseResourcesModel.h"
 #include <QMetaObject>
 #include "mainwnd.h"
+#include "CourseResourcesModel.h"
 
 
-CourseResourcesModel::CourseResourcesModel(CourseSourcesTree* root, QObject* parent) : QAbstractItemModel(parent){
+CourseResourcesModel::CourseResourcesModel(CourseResourcesTree* root, QObject* parent) : QAbstractItemModel(parent){
 	treeRoot = root;
 }
 
@@ -18,9 +18,9 @@ QVariant CourseResourcesModel::data(const QModelIndex& index, int role) const{
 	if (role == Qt::DisplayRole){
 		switch (index.column()){
 		case 0:
-			return static_cast<CourseSourcesTree*>(index.internalPointer())->visualName;
+			return static_cast<CourseResourcesTree*>(index.internalPointer())->visualName;
 		case 1:
-			return QString("CourseSourcesTree");
+			return QString("CourseResourcesTree");
 		case 2:
 			return QString("Col: %1, Row:%1").arg(index.row(), index.column());
 		default:
@@ -40,8 +40,7 @@ QVariant CourseResourcesModel::data(const QModelIndex& index, int role) const{
 	return QVariant();
 }
 
-QVariant CourseResourcesModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
+QVariant CourseResourcesModel::headerData(int section, Qt::Orientation orientation, int role) const{
 	if (role != Qt::DisplayRole || orientation != Qt::Horizontal)
 		return QVariant();
 	switch (section){
@@ -56,14 +55,17 @@ QVariant CourseResourcesModel::headerData(int section, Qt::Orientation orientati
 	}
 }
 
-int CourseResourcesModel::rowCount(const QModelIndex& parent) const
-{
-	CourseSourcesTree *parentNode;
+int CourseResourcesModel::rowCount(const QModelIndex& parent) const{
+	if(!treeRoot){
+		return 0;
+	}
+
+	CourseResourcesTree *parentNode;
 
 	if (!parent.isValid())
 		parentNode = treeRoot;
 	else
-		parentNode = static_cast<CourseSourcesTree*>(parent.internalPointer());
+		parentNode = static_cast<CourseResourcesTree*>(parent.internalPointer());
 
 	return parentNode->childrenList.size();
 }
@@ -75,15 +77,16 @@ int CourseResourcesModel::columnCount(const QModelIndex& parent) const
 
 QModelIndex CourseResourcesModel::index(int row, int column, const QModelIndex& parent) const{
 	//QObject* parentObject;
-	CourseSourcesTree *parentNode;
+	CourseResourcesTree *parentNode;
 	if (!parent.isValid())
 		parentNode = treeRoot;
 	else
-		parentNode = static_cast<CourseSourcesTree*>(parent.internalPointer());
+		parentNode = static_cast<CourseResourcesTree*>(parent.internalPointer());
 	/*if (row < parentObject->children().count())
 		return createIndex(row, column, parentObject->children().at(row));
 	else
 		return QModelIndex();*/
+	qDebug()<<"List "<<parentNode->childrenList.size();
 	Q_ASSERT(row < parentNode->childrenList.size());
 	return createIndex(row, column, parentNode->childrenList.at(row));
 	//return QModelIndex(row, column, parentNode->childrenList.at(row), this);
@@ -94,13 +97,13 @@ QModelIndex CourseResourcesModel::parent(const QModelIndex& index) const{
 	if (!index.isValid())
 		return QModelIndex();
 
-	CourseSourcesTree* indexNode = static_cast<CourseSourcesTree*>(index.internalPointer());
-	CourseSourcesTree* parentNode = indexNode->parent;
+	CourseResourcesTree* indexNode = static_cast<CourseResourcesTree*>(index.internalPointer());
+	CourseResourcesTree* parentNode = indexNode->parent;
 
 	if (parentNode == treeRoot)
 		return QModelIndex();
 
-	CourseSourcesTree* grandParentObject = parentNode->parent;
+	CourseResourcesTree* grandParentObject = parentNode->parent;
 
 	return createIndex(grandParentObject->childrenList.indexOf(parentNode), 0, parentNode);
 }

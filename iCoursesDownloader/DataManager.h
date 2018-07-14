@@ -6,8 +6,7 @@
 #include "HttpManager.h"
 
 
-namespace StorageManager
-{
+namespace StorageManager{
 	const int STORAGE_DB_VERSION = 4;
 	QList<Course*> loadCourseList();
 	void saveCourseList(QList<Course*> *coursesList);
@@ -21,4 +20,7 @@ namespace StorageManager
 	//HTTPDownload* startDownload(QString url, QString localRelativePath);
 
 	//getCourseC...
+	namespace Utils{
+		QString resourcesStorageAbsolutePath(int courseId, int typeSort);
+	}
 }

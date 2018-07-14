@@ -1,6 +1,6 @@
 #include <QMenu>
 #include "CoursesWnd.h"
-#include "StorageManager.h"
+#include "DataManager.h"
 
 QList<Course*> coursesListTest;
 
@@ -15,7 +15,6 @@ CoursesWnd::CoursesWnd(QWidget *parent)
 	//ui.lw_allCourses->setViewMode(QListView::ListMode);
     //ui.lw_allCourses->setViewMode(QListView::IconMode);
 
-	
     CourseListMenu = new QMenu();
     QAction *lw_action1 = CourseListMenu->addAction("&Open");
     QAction *lw_action2 = CourseListMenu->addAction("&Reload");
@@ -35,6 +34,8 @@ CoursesWnd::CoursesWnd(QWidget *parent)
 	foreach(Course* course, courseList){
 		courseModelList->append(buildModelForCourse(course));
 	}
+	CourseResourcesManager::loadResources(courseModelList);
+
 	courseList.clear();
 	reflushList();
 
@@ -57,15 +58,14 @@ CourseModel* CoursesWnd::buildModelForCourse(Course* course){
 	model->itemWidget->ui.label->setPixmap(*(model->loadedLogo));
 	model->itemWidget->ui.label->setScaledContents(true);
 
-	
 	model->listItem = new QListWidgetItem(ui.lw_allCourses);
 	model->listItem->setSizeHint(QSize(160,130));
 
 	return model;
 }
 
-void CoursesWnd::reflushList()//TODO: sth. wrong?
-{
+void CoursesWnd::reflushList(){//TODO: sth. wrong?
+
 	ui.tv_CoursesCount->setText(QString("%1 items.").arg(courseModelList->size()));
 	//ui.lw_allCourses->clear();
 

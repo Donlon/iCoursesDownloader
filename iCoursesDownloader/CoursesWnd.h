@@ -9,8 +9,7 @@
 #include "AddCourseDlg.h"
 #include "CourseItemWidget.h"
 
-
-#include "StorageManager.h"//TODO: Delete it
+#include "DataManager.h"//TODO: Delete it
 #include "CourseDetailsWnd.h"
 
 class CoursesWnd : public QDialog
@@ -34,7 +33,7 @@ private:
 	Ui::CoursesWindow ui;
 	AddCourseDialog *addCourseDlg;
 	CourseDetailsWnd *courseDetailsWnd;
-	QList<CourseModel*>* courseModelList;
+	QList<CourseModel*>* courseModelList;//Is this point old-fashioned too much?
 	QMenu *CourseListMenu;
 	QModelIndex *treeListMenuTriggeredAt;
 

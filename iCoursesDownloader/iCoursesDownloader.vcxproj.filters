@@ -107,17 +107,8 @@
     <ClCompile Include="StorageManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CharptersTreeItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResourcesJsonParser.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_CharptersTreeItem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_CharptersTreeItem.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="CourseResourcesModel.cpp">
       <Filter>Source Files</Filter>
@@ -125,7 +116,10 @@
     <ClCompile Include="CourseResourcesSelectionModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CourseSourcesTree.cpp">
+    <ClCompile Include="CourseResourcesManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseResourcesTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,9 +169,6 @@
     <CustomBuild Include="SettingsWnd.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="CharptersTreeItem.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwnd.h">
@@ -210,9 +201,6 @@
     <ClInclude Include="CourseItemWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StorageManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -225,7 +213,13 @@
     <ClInclude Include="CourseResourcesSelectionModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CourseSourcesTree.h">
+    <ClInclude Include="CourseResourcesManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseResourcesTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
