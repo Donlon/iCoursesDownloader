@@ -9,12 +9,6 @@ QFile *linksFile = nullptr;
 #define _ERROR(a) ;Q_ASSERT_X(false, "ResourcesJsonParser", a);;
 
 void ResourcesJsonParser::parse(QString filePath){
-	/*linksFile = new QFile(StorageManager::getLocalFilePath(filePath)+"_links");
-	
-    if (!linksFile->open(QIODevice::WriteOnly)) {
-		return false;
-    }*/
-
 	QFile charptersJsonFile(
 		StorageManager::getLocalFilePath(filePath));
 	
@@ -63,7 +57,9 @@ void ResourcesJsonParser::parse(QString filePath){
 	resultTreeNode = rootTree;
 }
 
-//TODO£ºreport invalidated items
+
+
+//TODO: report invalidated items
 void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, CourseResourcesTree *parentNode, int depth){
 
 	foreach (QJsonValue& item, jsonArrayNode){
@@ -116,15 +112,25 @@ void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, Course
 			
 					if(!resObj.value("title").isString()
 						|| !resObj.value("resSize").isString()
-						|| !resObj.value("mediaType").isString()){
+						|| !resObj.value("mediaType").isString()
+						|| !resObj.value("fullResUrl").isString()){
 						continue;
 					}
 
 					fileNode->visualName = QString("%1. ").arg(resNo) + resObj.value("title").toString();
+					fileNode->resUrl = resObj.value("fullResUrl").toString();
 					fileNode->size = resObj.value("resSize").toString().toInt();
-					//fileNode->  resObj.value("mediaType").toString());
-					fileNode->type = CourseResourcesTree::Other;
 					fileNode->depth = depth + 1;
+
+					if(resObj.value("mediaType").toString() == "mp4"){
+						fileNode->type = CourseResourcesTree::Video;
+					}else if(resObj.value("mediaType").toString() == "ppt"){
+						fileNode->type = CourseResourcesTree::Document;
+					}else if(resObj.value("mediaType").toString() == "pdf"){
+						fileNode->type = CourseResourcesTree::Document;
+					}else{
+						fileNode->type = CourseResourcesTree::Other;
+					}
 
 					resNo++;
 				}

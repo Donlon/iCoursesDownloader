@@ -176,7 +176,7 @@
       <rect>
        <x>0</x>
        <y>120</y>
-       <width>158</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -194,7 +194,7 @@
       <rect>
        <x>0</x>
        <y>80</y>
-       <width>158</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -212,7 +212,7 @@
       <rect>
        <x>0</x>
        <y>40</y>
-       <width>158</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -230,7 +230,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>158</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -276,6 +276,32 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_export">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>570</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Export</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_rename">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>570</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rename</string>
     </property>
    </widget>
   </widget>
@@ -378,6 +404,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_export</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_export()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>591</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>168</x>
+     <y>587</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_rename</sender>
+   <signal>clicked()</signal>
+   <receiver>CourseDetailsWindow</receiver>
+   <slot>btn_rename()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>585</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>94</x>
+     <y>629</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>btn_t1()</slot>
@@ -386,5 +444,7 @@
   <slot>btn_t4()</slot>
   <slot>cbx_typeFilter(int)</slot>
   <slot>resourcesList_ctxMenu(QPoint)</slot>
+  <slot>btn_export()</slot>
+  <slot>btn_rename()</slot>
  </slots>
 </ui>

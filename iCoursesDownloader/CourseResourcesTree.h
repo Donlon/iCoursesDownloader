@@ -1,5 +1,6 @@
 #pragma once
 #include <QList>
+#include <QModelIndex>
 
 class CourseResourcesTree
 {
@@ -35,9 +36,10 @@ public:
 	bool selectedInTreeView;
 	int index;
 	QList<CourseResourcesTree*> childrenList;
-
+	QModelIndex parallelModelIndex;
 	QString visualName;
 	int size;//TODO: function implementation of setSize(int)
+	QString resUrl;
 
 protected:
 	void addChild(CourseResourcesTree *child){

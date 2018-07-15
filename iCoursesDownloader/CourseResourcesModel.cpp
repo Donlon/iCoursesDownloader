@@ -20,18 +20,18 @@ QVariant CourseResourcesModel::data(const QModelIndex& index, int role) const{
 		case 0:
 			return static_cast<CourseResourcesTree*>(index.internalPointer())->visualName;
 		case 1:
-			return QString("CourseResourcesTree");
+			switch(static_cast<CourseResourcesTree*>(index.internalPointer())->type)
+			{
+			case CourseResourcesTree::Video:
+				return QString("Video");//TODO: static string
+			case CourseResourcesTree::Document:
+				return QString("Document");//TODO: static string
+			case CourseResourcesTree::Other:
+			default:
+				return QString("Other");//TODO: static string
+			}
 		case 2:
-			return QString("Col: %1, Row:%1").arg(index.row(), index.column());
-		default:
-			break;
-		}
-	}else if (role == Qt::ToolTipRole || role == Qt::WhatsThisRole){
-		switch (index.column()){
-		case 0:
-			return QString("The name of the object.");
-		case 1:
-			return QString("The name of the class.");
+			return QString("Col: %1, Row:%2").arg(index.row()).arg(index.column());
 		default:
 			break;
 		}
@@ -45,9 +45,9 @@ QVariant CourseResourcesModel::headerData(int section, Qt::Orientation orientati
 		return QVariant();
 	switch (section){
 	case 0:
-		return QString("Object");
+		return QString("Name");
 	case 1:
-		return QString("Class");
+		return QString("Type");
 	case 2:
 		return QString("Ds");
 	default:
@@ -86,7 +86,7 @@ QModelIndex CourseResourcesModel::index(int row, int column, const QModelIndex& 
 		return createIndex(row, column, parentObject->children().at(row));
 	else
 		return QModelIndex();*/
-	qDebug()<<"List "<<parentNode->childrenList.size();
+	//qDebug()<<"List "<<parentNode->childrenList.size();
 	Q_ASSERT(row < parentNode->childrenList.size());
 	return createIndex(row, column, parentNode->childrenList.at(row));
 	//return QModelIndex(row, column, parentNode->childrenList.at(row), this);

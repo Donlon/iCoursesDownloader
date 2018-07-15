@@ -26,6 +26,8 @@ protected slots:
     void btn_t2(){resourcesSortSelectionChanged(1);}
     void btn_t3(){resourcesSortSelectionChanged(2);}
     void btn_t4(){resourcesSortSelectionChanged(3);}
+	void btn_export();
+	void btn_rename();
 signals:
 	void closed();
 private:

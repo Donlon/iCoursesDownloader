@@ -16,6 +16,7 @@ void CourseResourcesSelectionModel::setCurrentIndex(const QModelIndex& index,
 
 void CourseResourcesSelectionModel::select(const QModelIndex& index, QItemSelectionModel::SelectionFlags command)
 {
+	if(!index.isValid()) return;
     if (command & Clear) {
         static_cast<CourseResourcesTree*>(index.internalPointer())->selectedInTreeView = false;
     }else

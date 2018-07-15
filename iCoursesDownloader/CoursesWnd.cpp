@@ -84,7 +84,10 @@ void CoursesWnd::btn_add(){
 	}
 
 	Course *newCourse = addCourseDlg->newCourse;
-	courseModelList->append(buildModelForCourse(newCourse));
+	CourseModel *newModel = buildModelForCourse(newCourse);
+	CourseResourcesManager::appendResources(newModel);//TODO: merge to AddCourseDlg
+	courseModelList->append(newModel);
+
 	saveList();
 	reflushList();
 }
