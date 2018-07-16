@@ -54,8 +54,8 @@ CourseModel* CoursesWnd::buildModelForCourse(Course* course){
 
 	model->itemWidget->setToolTip(course->title + " | " + course->school);
 
-	model->loadedLogo = new QPixmap(STORAGE_PATH + model->courseInfo->logoLocalPath);
-	model->itemWidget->ui.label->setPixmap(*(model->loadedLogo));
+	model->loadedLogo = QPixmap(STORAGE_PATH + model->courseInfo->logoLocalPath);
+	model->itemWidget->ui.label->setPixmap(model->loadedLogo);
 	model->itemWidget->ui.label->setScaledContents(true);
 
 	model->listItem = new QListWidgetItem(ui.lw_allCourses);
@@ -144,7 +144,11 @@ void CoursesWnd::removeItem(CourseModel* item){//TODO
 	courseModelList->removeOne(item);
 	qDebug()<<"Size:"<<courseModelList->size();
 	QFile::remove(StorageManager::getLocalFilePath(item->courseInfo->logoLocalPath));
-	QFile::remove(StorageManager::getLocalFilePath(item->courseInfo->charptersLocalPath));
+
+	int i = 4;
+	while(i-- > 0){
+		QFile::remove(StorageManager::getLocalFilePath(item->courseInfo->resLocalPaths[i]));
+	}
 
 	delete item;
 

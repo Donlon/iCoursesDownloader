@@ -23,10 +23,10 @@ public:
 		dataStream<<course.school;
 		dataStream<<course.logoPath;
 		dataStream<<course.logoLocalPath;
-		dataStream<<course.charptersLocalPath;
-		dataStream<<course.exercisesLocalPath;
-		dataStream<<course.testPapersLocalPath;
-		dataStream<<course.otherResLocalPath;
+		dataStream<<course.resLocalPaths[0];
+		dataStream<<course.resLocalPaths[1];
+		dataStream<<course.resLocalPaths[2];
+		dataStream<<course.resLocalPaths[3];
 		return dataStream;
 	}
 	friend QDataStream &operator>>(QDataStream & dataStream, Course & course)
@@ -37,10 +37,10 @@ public:
 		dataStream>>course.school;
 		dataStream>>course.logoPath;
 		dataStream>>course.logoLocalPath;
-		dataStream>>course.charptersLocalPath;
-		dataStream>>course.exercisesLocalPath;
-		dataStream>>course.testPapersLocalPath;
-		dataStream>>course.otherResLocalPath;
+		dataStream>>course.resLocalPaths[0];
+		dataStream>>course.resLocalPaths[1];
+		dataStream>>course.resLocalPaths[2];
+		dataStream>>course.resLocalPaths[3];
 		return dataStream;
 	}
 
@@ -53,10 +53,12 @@ public:
  
 	QString logoLocalPath;
 
-	QString charptersLocalPath;
-	QString exercisesLocalPath;
-	QString testPapersLocalPath;
-	QString otherResLocalPath;
+	QString resLocalPaths[4];
+
+	//QString charptersLocalPath;
+	//QString exercisesLocalPath;
+	//QString testPapersLocalPath;
+	//QString otherResLocalPath;
 };
 
 class CourseModel{
@@ -72,6 +74,6 @@ public:
 
 	QListWidgetItem *listItem;
 
-	QPixmap *loadedLogo;
+	QPixmap loadedLogo;
 };
 

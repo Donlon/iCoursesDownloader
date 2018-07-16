@@ -177,15 +177,7 @@ void AddCourseDialog::loadResources(){
 
 		QString resSavingPath = QString(resSavingPaths.at(loadIndex)).arg(newCourse->id);
 
-		if(loadIndex == 0){
-			newCourse->charptersLocalPath  = resSavingPath;
-		}else if(loadIndex == 1){
-			newCourse->exercisesLocalPath  = resSavingPath;
-		}else if(loadIndex == 2){
-			newCourse->testPapersLocalPath = resSavingPath;
-		}else{
-			newCourse->otherResLocalPath   = resSavingPath;
-		} 
+		newCourse->resLocalPaths[loadIndex] = resSavingPath;
 
 		if(!StorageManager::saveFile(resLoadingReply, resSavingPath)){
 			onDataProcessedError(QString("Save %1 failed.").arg(resFriendlyName.at(loadIndex)));

@@ -18,14 +18,14 @@ public:
 protected:
 	void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 	void closeEvent(QCloseEvent*) Q_DECL_OVERRIDE;
-	void resourcesSortSelectionChanged(int sort);
+	void resourcesSortChange(int sort);
 protected slots:
 	void resourcesList_ctxMenu(QPoint pos);
 	void menu_download();
-    void btn_t1(){resourcesSortSelectionChanged(0);}
-    void btn_t2(){resourcesSortSelectionChanged(1);}
-    void btn_t3(){resourcesSortSelectionChanged(2);}
-    void btn_t4(){resourcesSortSelectionChanged(3);}
+    void btn_t1(){resourcesSortChange(0);}
+    void btn_t2(){resourcesSortChange(1);}
+    void btn_t3(){resourcesSortChange(2);}
+    void btn_t4(){resourcesSortChange(3);}
 	void btn_export();
 	void btn_rename();
 signals:
@@ -34,7 +34,8 @@ private:
 	Ui::CourseDetailsWindow ui;
 	QMenu *resourcesListMenu;
 
-	QModelIndex *treeListMenuTriggeredAt;
+	QModelIndex treeListMenuTriggeredAt;
 	//CourseResourcesSelectionModel *listSelectionModel;
 	CourseResourcesSelectionModel *listSelectionModel;
+	int selectedSort;
 };

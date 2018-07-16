@@ -166,6 +166,7 @@
     <ClInclude Include="CourseResourcesModel.h" />
     <ClInclude Include="CourseResourcesSelectionModel.h" />
     <ClInclude Include="CourseResourcesTree.h" />
+    <ClInclude Include="CourseResourcesTreeDFS.h" />
     <ClInclude Include="ResourcesJsonParser.h" />
     <ClInclude Include="CourseItemWidget.h" />
     <ClInclude Include="resource.h" />

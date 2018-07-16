@@ -26,6 +26,8 @@ QVariant CourseResourcesModel::data(const QModelIndex& index, int role) const{
 				return QString("Video");//TODO: static string
 			case CourseResourcesTree::Document:
 				return QString("Document");//TODO: static string
+			case CourseResourcesTree::Folder:
+				return QString("");//TODO: static string
 			case CourseResourcesTree::Other:
 			default:
 				return QString("Other");//TODO: static string
@@ -61,7 +63,6 @@ int CourseResourcesModel::rowCount(const QModelIndex& parent) const{
 	}
 
 	CourseResourcesTree *parentNode;
-
 	if (!parent.isValid())
 		parentNode = treeRoot;
 	else
@@ -82,14 +83,13 @@ QModelIndex CourseResourcesModel::index(int row, int column, const QModelIndex& 
 		parentNode = treeRoot;
 	else
 		parentNode = static_cast<CourseResourcesTree*>(parent.internalPointer());
-	/*if (row < parentObject->children().count())
-		return createIndex(row, column, parentObject->children().at(row));
-	else
-		return QModelIndex();*/
-	//qDebug()<<"List "<<parentNode->childrenList.size();
+
+	if(parentNode->childrenList.empty()){
+		return QModelIndex();
+	}
+
 	Q_ASSERT(row < parentNode->childrenList.size());
 	return createIndex(row, column, parentNode->childrenList.at(row));
-	//return QModelIndex(row, column, parentNode->childrenList.at(row), this);
 }
 
 QModelIndex CourseResourcesModel::parent(const QModelIndex& index) const{

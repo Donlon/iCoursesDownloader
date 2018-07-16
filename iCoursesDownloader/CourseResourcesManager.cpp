@@ -17,7 +17,7 @@ void CourseResourcesManager::appendResources(CourseModel* model){
 
 	for(int i=0; i < 4/*TODO*/; i++){
 		ResourcesJsonParser charptersJsonParser;
-		charptersJsonParser.parse(model->courseInfo->charptersLocalPath);
+		charptersJsonParser.parse(model->courseInfo->resLocalPaths[i]);
 
 		treeList.append(charptersJsonParser.resultTreeNode);
 		modelsList.append(new CourseResourcesModel(charptersJsonParser.resultTreeNode));
