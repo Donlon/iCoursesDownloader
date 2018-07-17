@@ -38,7 +38,7 @@ void HTTPDownload::saveFileData()
     QDir dir(fileInfo.path());
     if(!dir.exists())
     {
-        bool ok = dir.mkpath(fileInfo.path());//�����༶Ŀ¼
+        bool ok = dir.mkpath(fileInfo.path());
     }
 
     QFile file(localPath);

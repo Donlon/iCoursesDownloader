@@ -8,15 +8,9 @@
 
 class Course{
 public:
-    Course(int id, QString title, QString teacher, QString school, QString picturePath)
-    :id(id), title(title), teacher(teacher), school(school), logoPath(picturePath){
-    }
-    Course()
-    {
-        id = -1;
-    }
-    friend QDataStream &operator<<(QDataStream & dataStream, Course & course)
-    {
+    Course() : id(-1){;}
+
+    friend QDataStream &operator<<(QDataStream & dataStream, Course & course){
         dataStream<<course.id;
         dataStream<<course.title;
         dataStream<<course.teacher;
@@ -29,8 +23,8 @@ public:
         dataStream<<course.resLocalPaths[3];
         return dataStream;
     }
-    friend QDataStream &operator>>(QDataStream & dataStream, Course & course)
-    {
+
+    friend QDataStream &operator>>(QDataStream & dataStream, Course & course){
         dataStream>>course.id;
         dataStream>>course.title;
         dataStream>>course.teacher;

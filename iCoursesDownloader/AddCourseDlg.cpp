@@ -204,6 +204,8 @@ void AddCourseDialog::loadResources(){
 }
 
 void AddCourseDialog::loadingFinished(){
+    ui.tv_status->setText("Parsing Resources Files...");
+    CourseResourcesManager::appendResources(newCourse);//TODO: merge to AddCourseDlg
     execResult = ResultCode::Added;
     close();
 }

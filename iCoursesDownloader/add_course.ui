@@ -442,7 +442,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Segoe UI</family>
+    <family>微软雅黑</family>
     <pointsize>10</pointsize>
    </font>
   </property>
@@ -500,7 +500,7 @@
       <widget class="QLabel" name="tv_status">
        <property name="font">
         <font>
-         <pointsize>8</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">

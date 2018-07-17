@@ -72,7 +72,7 @@
     <ClCompile Include="SettingsWnd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StorageManager.cpp">
+    <ClCompile Include="DataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

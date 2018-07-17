@@ -15,12 +15,4 @@ namespace StorageManager{
     bool saveFile(QNetworkReply *reply, QString localRelativePath);
 
     QString getLocalFilePath(QString relativePath);
-    //QString STORAGE_PATH();
-
-    //HTTPDownload* startDownload(QString url, QString localRelativePath);
-
-    //getCourseC...
-    namespace Utils{
-        QString resourcesStorageAbsolutePath(int courseId, int typeSort);
-    }
 }

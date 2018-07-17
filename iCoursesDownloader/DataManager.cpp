@@ -55,7 +55,7 @@ QList<Course*> StorageManager::loadCourseList(){
 void StorageManager::saveCourseList(QList<Course*>* coursesList){
     QFile file(CONST_STORAGE_PATH"CourseList.dat");
 
-    if (!file.open(QIODevice::WriteOnly)) {
+    if (!file.open(QIODevice::WriteOnly)){
         return;
     }
     QDataStream out(&file);
@@ -64,8 +64,7 @@ void StorageManager::saveCourseList(QList<Course*>* coursesList){
     out.writeRawData(COURSE_DB_HEADER2, 16);
 
     out<<coursesList->size();
-    foreach(Course* course, *coursesList)
-    {
+    foreach(Course* course, *coursesList){
         out<<*course;
     }
 }
@@ -73,7 +72,7 @@ void StorageManager::saveCourseList(QList<Course*>* coursesList){
 void StorageManager::saveCourseList(QList<CourseModel*>* courseModlesList){
     QFile file(CONST_STORAGE_PATH"CourseList.dat");
 
-    if (!file.open(QIODevice::WriteOnly)) {
+    if (!file.open(QIODevice::WriteOnly)){
         return;
     }
     QDataStream out(&file);
@@ -82,20 +81,10 @@ void StorageManager::saveCourseList(QList<CourseModel*>* courseModlesList){
     out.writeRawData(COURSE_DB_HEADER2, 16);
 
     out<<courseModlesList->size();
-    foreach(CourseModel* courseModel, *courseModlesList)
-    {
+    foreach(CourseModel* courseModel, *courseModlesList){
         out<<*courseModel->courseInfo;
     }
 }
-
-/*HTTPDownload* StorageManager::startDownload(QString url, QString localRelativePath)
-{
-    QNetworkReply *reply = HTTPManager::get(url);
-    HTTPDownload *dl = new HTTPDownload(reply, CONST_STORAGE_PATH + localRelativePath);
-    QObject::connect(reply, &QNetworkReply::finished, dl, &HTTPDownload::saveFileData);
-
-    return dl;
-}*/
 
 bool StorageManager::saveFile(QNetworkReply *reply, QString localRelativePath){
     
@@ -106,15 +95,14 @@ bool StorageManager::saveFile(QNetworkReply *reply, QString localRelativePath){
     QDir dir(fileInfo.path());
 
     if(!dir.exists()){
-        if(!dir.mkpath(fileInfo.path()))
-        {
+        if(!dir.mkpath(fileInfo.path())){
             return false;
         }
     }
 
     QFile file(localPath);
 
-    if (!file.open(QIODevice::WriteOnly)) {
+    if (!file.open(QIODevice::WriteOnly)){
         return false;
     }
 

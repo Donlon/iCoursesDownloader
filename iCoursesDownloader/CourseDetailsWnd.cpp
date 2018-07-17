@@ -77,7 +77,6 @@ void CourseDetailsWnd::menu_download(){
 void CourseDetailsWnd::btn_export(){
     CourseResourcesDFS_Start(CourseResourcesManager::getResourcesTree(courseModel->courseInfo->id, selectedSort),
                              stack, treeStack, depth){
-
         QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
         const QString fileName = QFileDialog::getSaveFileName(this,
                                                         "Save Course Resources Info",

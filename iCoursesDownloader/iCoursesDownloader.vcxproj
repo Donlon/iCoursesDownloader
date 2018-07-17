@@ -127,7 +127,7 @@
     <ClCompile Include="mainwnd.cpp" />
     <ClCompile Include="ResourcesJsonParser.cpp" />
     <ClCompile Include="SettingsWnd.cpp" />
-    <ClCompile Include="StorageManager.cpp" />
+    <ClCompile Include="DataManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="add_course.ui" />

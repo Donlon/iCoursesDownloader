@@ -7,24 +7,24 @@ QMap<int, QList<CourseResourcesModel*>> g_models;
 
 void CourseResourcesManager::loadResources(QList<CourseModel*>* courseModelList){
     foreach(CourseModel* modelItem, *courseModelList){
-        appendResources(modelItem);
+        appendResources(modelItem->courseInfo);
     }
 }
 
-void CourseResourcesManager::appendResources(CourseModel* model){
+void CourseResourcesManager::appendResources(Course* course){
     QList<CourseResourcesTree*> treeList;
     QList<CourseResourcesModel*> modelsList;
 
     for(int i=0; i < 4/*TODO*/; i++){
         ResourcesJsonParser charptersJsonParser;
-        charptersJsonParser.parse(model->courseInfo->resLocalPaths[i]);
+        charptersJsonParser.parse(course->resLocalPaths[i]);
 
         treeList.append(charptersJsonParser.resultTreeNode);
         modelsList.append(new CourseResourcesModel(charptersJsonParser.resultTreeNode));
     }
         
-    g_data.insert(model->courseInfo->id, treeList);
-    g_models.insert(model->courseInfo->id, modelsList);
+    g_data.insert(course->id, treeList);
+    g_models.insert(course->id, modelsList);
 }
 
 CourseResourcesModel* CourseResourcesManager::getListModel(int courseId, int sort){
