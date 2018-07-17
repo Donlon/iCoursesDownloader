@@ -1,7 +1,7 @@
 #include "SettingsWnd.h"
 
 SettingsWnd::SettingsWnd(QWidget *parent)
-	: QDialog(parent)
+    : QDialog(parent)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 }

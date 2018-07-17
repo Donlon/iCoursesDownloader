@@ -7,20 +7,20 @@ class QString;
 class ResourcesJsonParser
 {
 public:
-	ResourcesJsonParser(void): failed(false), resultTreeNode(nullptr){};
-	void parse(QString filePath);
-	void recursionParseObject(QJsonArray &jsonNode, CourseResourcesTree* parentNode, int depth = 0);
+    ResourcesJsonParser(void): failed(false), resultTreeNode(nullptr){};
+    void parse(QString filePath);
+    void recursionParseObject(QJsonArray &jsonNode, CourseResourcesTree* parentNode, int depth = 0);
 
-	bool verifyJsonFileSucceed(QString filePath);
+    bool verifyJsonFileSucceed(QString filePath);
 
-	QString errorString();
-	bool failed;
+    QString errorString();
+    bool failed;
 
-	CourseResourcesTree *resultTreeNode;
+    CourseResourcesTree *resultTreeNode;
 protected:
-	QString m_errorText;
-	void onParseError(QString errorText);
-	static QString fileSizeToString(int bytes);
+    QString m_errorText;
+    void onParseError(QString errorText);
+    static QString fileSizeToString(int bytes);
 
 };
 

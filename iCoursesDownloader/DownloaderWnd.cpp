@@ -1,7 +1,7 @@
 #include "DownloaderWnd.h"
 
 DownloaderWnd::DownloaderWnd(QWidget *parent)
-	: QDialog(parent)
+    : QDialog(parent)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 }

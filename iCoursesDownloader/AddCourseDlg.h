@@ -22,33 +22,33 @@ class Course;
 
 class AddCourseDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum ResultCode {
+    enum ResultCode {
         Added,
         Failed
     };
-	ResultCode execResult;
-	AddCourseDialog(QWidget *parent = nullptr);
-	Course *newCourse;//nullptr if failed
+    ResultCode execResult;
+    AddCourseDialog(QWidget *parent = nullptr);
+    Course *newCourse;//nullptr if failed
 protected:
-	void showEvent(QShowEvent *event) override;
-	void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 protected slots:
-	void btn_add();
-	void onCourseIntroRequestFinished();
-	void loadResources();
+    void btn_add();
+    void onCourseIntroRequestFinished();
+    void loadResources();
 private:
-	void inline loadingFinished();
-	void onDataProcessedError(QString tips);
-	void loadCourseLogo();
-	void loadLogoFinished();
-	void setDialogEnabled(bool e);
-	Ui::AddCourseDialog ui;
-	QNetworkReply *courseIntroductionReply;
-	QNetworkReply *logoDownloadReply;
-	QNetworkReply *resLoadingReply;
+    void inline loadingFinished();
+    void onDataProcessedError(QString tips);
+    void loadCourseLogo();
+    void loadLogoFinished();
+    void setDialogEnabled(bool e);
+    Ui::AddCourseDialog ui;
+    QNetworkReply *courseIntroductionReply;
+    QNetworkReply *logoDownloadReply;
+    QNetworkReply *resLoadingReply;
 
 };
 

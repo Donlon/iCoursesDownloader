@@ -14,28 +14,28 @@
 
 class CoursesWnd : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	CoursesWnd(QWidget *parent = nullptr);
-	CourseModel* getCurrentSelectedCourse();
-	void reflushList();
-	CourseModel* buildModelForCourse(Course* course);
+    CoursesWnd(QWidget *parent = nullptr);
+    CourseModel* getCurrentSelectedCourse();
+    void reflushList();
+    CourseModel* buildModelForCourse(Course* course);
 protected slots:
-	void btn_add();
-	void btn_open();
-	void onCourseListContextMenu(const QPoint& pos);
-	void menu_removeItem(bool checked);
-	void menu_reloadItem(bool checked);
-	void removeItem(CourseModel* item);
-	void onCourseDetailsWndClose();
-	void saveList(){StorageManager::saveCourseList(courseModelList);};
+    void btn_add();
+    void btn_open();
+    void onCourseListContextMenu(const QPoint& pos);
+    void menu_removeItem(bool checked);
+    void menu_reloadItem(bool checked);
+    void removeItem(CourseModel* item);
+    void onCourseDetailsWndClose();
+    void saveList(){StorageManager::saveCourseList(courseModelList);};
 private:
-	Ui::CoursesWindow ui;
-	AddCourseDialog *addCourseDlg;
-	CourseDetailsWnd *courseDetailsWnd;
-	QList<CourseModel*>* courseModelList;//Is this point old-fashioned too much?
-	QMenu *CourseListMenu;
-	QModelIndex *treeListMenuTriggeredAt;
+    Ui::CoursesWindow ui;
+    AddCourseDialog *addCourseDlg;
+    CourseDetailsWnd *courseDetailsWnd;
+    QList<CourseModel*>* courseModelList;//Is this point old-fashioned too much?
+    QMenu *CourseListMenu;
+    QModelIndex *treeListMenuTriggeredAt;
 
 };
 

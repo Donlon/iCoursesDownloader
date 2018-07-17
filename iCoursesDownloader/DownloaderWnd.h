@@ -7,11 +7,11 @@
 
 class DownloaderWnd : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	DownloaderWnd(QWidget *parent = 0);
+    DownloaderWnd(QWidget *parent = 0);
 private:
-	Ui::DownloaderWindow ui;
+    Ui::DownloaderWindow ui;
 };
 
 #endif // DOWNLOADERWND_H

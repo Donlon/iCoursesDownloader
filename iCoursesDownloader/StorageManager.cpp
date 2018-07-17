@@ -9,121 +9,121 @@ char COURSE_DB_HEADER[17] = {"DonlonDBFile\0\0\r\n"};
 char COURSE_DB_HEADER2[17] = {"\x22\x11\x54\xdf\x22\x11\x54\xdf\0\0\0\0\0\0\0\0"};
 
 QList<Course*> StorageManager::loadCourseList(){
-	QList<Course*> list;
+    QList<Course*> list;
 
-	QFile file(CONST_STORAGE_PATH"CourseList.dat");
+    QFile file(CONST_STORAGE_PATH"CourseList.dat");
 
     if (!file.open(QIODevice::ReadOnly)) {
         return list;
     }
 
-	QDataStream in(&file);
+    QDataStream in(&file);
 
-	char header[32] = {0};
+    char header[32] = {0};
 
-	if(in.readRawData(header, 32) == -1){
+    if(in.readRawData(header, 32) == -1){
         return list;
-	}
-	if(memcmp(header, COURSE_DB_HEADER, 16)!=0){
+    }
+    if(memcmp(header, COURSE_DB_HEADER, 16)!=0){
         return list;
-	}
-	if(memcmp(header + 16, COURSE_DB_HEADER2, 12)!=0){
+    }
+    if(memcmp(header + 16, COURSE_DB_HEADER2, 12)!=0){
         return list;
-	}
+    }
 
-	int dbVer = *reinterpret_cast<int*>(header + 16 + 12);
-	if(dbVer != STORAGE_DB_VERSION){
-		//TODO: alert
-		return list;
-	}
-
-	int size = 0;
-	in>>size;
-	if(size <= 0){
+    int dbVer = *reinterpret_cast<int*>(header + 16 + 12);
+    if(dbVer != STORAGE_DB_VERSION){
+        //TODO: alert
         return list;
-	}
-	
-	Course *t = nullptr;
-	for(;size>0;size--){
-		t = new Course();
-		in>>*t;
-		list.append(t);
-	}
-	return list;
+    }
+
+    int size = 0;
+    in>>size;
+    if(size <= 0){
+        return list;
+    }
+    
+    Course *t = nullptr;
+    for(;size>0;size--){
+        t = new Course();
+        in>>*t;
+        list.append(t);
+    }
+    return list;
 }
 
 void StorageManager::saveCourseList(QList<Course*>* coursesList){
-	QFile file(CONST_STORAGE_PATH"CourseList.dat");
+    QFile file(CONST_STORAGE_PATH"CourseList.dat");
 
     if (!file.open(QIODevice::WriteOnly)) {
         return;
     }
-	QDataStream out(&file);
-	out.writeRawData(COURSE_DB_HEADER, 16);
-	*reinterpret_cast<int*>(COURSE_DB_HEADER2 + 12) = STORAGE_DB_VERSION;
-	out.writeRawData(COURSE_DB_HEADER2, 16);
+    QDataStream out(&file);
+    out.writeRawData(COURSE_DB_HEADER, 16);
+    *reinterpret_cast<int*>(COURSE_DB_HEADER2 + 12) = STORAGE_DB_VERSION;
+    out.writeRawData(COURSE_DB_HEADER2, 16);
 
-	out<<coursesList->size();
-	foreach(Course* course, *coursesList)
-	{
-		out<<*course;
-	}
+    out<<coursesList->size();
+    foreach(Course* course, *coursesList)
+    {
+        out<<*course;
+    }
 }
 
 void StorageManager::saveCourseList(QList<CourseModel*>* courseModlesList){
-	QFile file(CONST_STORAGE_PATH"CourseList.dat");
+    QFile file(CONST_STORAGE_PATH"CourseList.dat");
 
     if (!file.open(QIODevice::WriteOnly)) {
         return;
     }
-	QDataStream out(&file);
-	out.writeRawData(COURSE_DB_HEADER, 16);
-	*reinterpret_cast<int*>(COURSE_DB_HEADER2 + 12) = STORAGE_DB_VERSION;
-	out.writeRawData(COURSE_DB_HEADER2, 16);
+    QDataStream out(&file);
+    out.writeRawData(COURSE_DB_HEADER, 16);
+    *reinterpret_cast<int*>(COURSE_DB_HEADER2 + 12) = STORAGE_DB_VERSION;
+    out.writeRawData(COURSE_DB_HEADER2, 16);
 
-	out<<courseModlesList->size();
-	foreach(CourseModel* courseModel, *courseModlesList)
-	{
-		out<<*courseModel->courseInfo;
-	}
+    out<<courseModlesList->size();
+    foreach(CourseModel* courseModel, *courseModlesList)
+    {
+        out<<*courseModel->courseInfo;
+    }
 }
 
 /*HTTPDownload* StorageManager::startDownload(QString url, QString localRelativePath)
 {
-	QNetworkReply *reply = HTTPManager::get(url);
-	HTTPDownload *dl = new HTTPDownload(reply, CONST_STORAGE_PATH + localRelativePath);
-	QObject::connect(reply, &QNetworkReply::finished, dl, &HTTPDownload::saveFileData);
+    QNetworkReply *reply = HTTPManager::get(url);
+    HTTPDownload *dl = new HTTPDownload(reply, CONST_STORAGE_PATH + localRelativePath);
+    QObject::connect(reply, &QNetworkReply::finished, dl, &HTTPDownload::saveFileData);
 
-	return dl;
+    return dl;
 }*/
 
 bool StorageManager::saveFile(QNetworkReply *reply, QString localRelativePath){
-	
-	QString localPath = STORAGE_PATH + localRelativePath;
+    
+    QString localPath = STORAGE_PATH + localRelativePath;
 
     QFileInfo fileInfo(localPath);
-	
-	QDir dir(fileInfo.path());
+    
+    QDir dir(fileInfo.path());
 
-	if(!dir.exists()){
-		if(!dir.mkpath(fileInfo.path()))
-		{
-			return false;
-		}
-	}
+    if(!dir.exists()){
+        if(!dir.mkpath(fileInfo.path()))
+        {
+            return false;
+        }
+    }
 
-	QFile file(localPath);
+    QFile file(localPath);
 
     if (!file.open(QIODevice::WriteOnly)) {
-		return false;
+        return false;
     }
 
     file.write(reply->readAll());
     file.close();
 
-	return true;
+    return true;
 }
 
 QString StorageManager::getLocalFilePath(QString relativePath){
-	return STORAGE_PATH + relativePath;
+    return STORAGE_PATH + relativePath;
 }

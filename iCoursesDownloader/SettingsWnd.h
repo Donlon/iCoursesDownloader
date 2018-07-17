@@ -7,12 +7,12 @@
 
 class SettingsWnd : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	SettingsWnd(QWidget *parent = 0);
+    SettingsWnd(QWidget *parent = 0);
 private:
-	Ui::SettingsWindow ui;
+    Ui::SettingsWindow ui;
 };
 
 #endif // SETTINGSWND_H

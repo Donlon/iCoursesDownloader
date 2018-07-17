@@ -7,20 +7,20 @@
 
 
 namespace StorageManager{
-	const int STORAGE_DB_VERSION = 4;
-	QList<Course*> loadCourseList();
-	void saveCourseList(QList<Course*> *coursesList);
-	void saveCourseList(QList<CourseModel*> *courseModlesList);
+    const int STORAGE_DB_VERSION = 4;
+    QList<Course*> loadCourseList();
+    void saveCourseList(QList<Course*> *coursesList);
+    void saveCourseList(QList<CourseModel*> *courseModlesList);
 
-	bool saveFile(QNetworkReply *reply, QString localRelativePath);
+    bool saveFile(QNetworkReply *reply, QString localRelativePath);
 
-	QString getLocalFilePath(QString relativePath);
-	//QString STORAGE_PATH();
+    QString getLocalFilePath(QString relativePath);
+    //QString STORAGE_PATH();
 
-	//HTTPDownload* startDownload(QString url, QString localRelativePath);
+    //HTTPDownload* startDownload(QString url, QString localRelativePath);
 
-	//getCourseC...
-	namespace Utils{
-		QString resourcesStorageAbsolutePath(int courseId, int typeSort);
-	}
+    //getCourseC...
+    namespace Utils{
+        QString resourcesStorageAbsolutePath(int courseId, int typeSort);
+    }
 }

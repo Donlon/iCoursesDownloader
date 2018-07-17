@@ -6,10 +6,10 @@
 
 /*namespace APIManager
 {
-	Q_OBJECT
+    Q_OBJECT
 
 
-	void getIntroduction(QString courseId);
+    void getIntroduction(QString courseId);
 
 };*/
 #endif // APIMANAGER_H

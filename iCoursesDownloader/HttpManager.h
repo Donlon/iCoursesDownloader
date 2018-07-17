@@ -19,9 +19,9 @@ public:
     static QNetworkReply* get(QString url);
     static QNetworkReply* get(const QNetworkRequest &request);
     static QNetworkReply* post(const QNetworkRequest &request, const QByteArray & data);
-	HTTPManager* getInstance();
+    HTTPManager* getInstance();
 //private:
-	static HTTPManager __Instance;
+    static HTTPManager __Instance;
 };
 
 /*
@@ -30,20 +30,20 @@ class HTTPDownload:public QObject
 
 Q_OBJECT
 public:
-	HTTPDownload(QNetworkReply* reply, QString localPath): reply(reply), localPath(localPath)
-	{
-		
-	}
-	HTTPDownload()
-	{
-		reply = nullptr;
-	}
-	QNetworkReply* reply;
-	QString localPath;
+    HTTPDownload(QNetworkReply* reply, QString localPath): reply(reply), localPath(localPath)
+    {
+        
+    }
+    HTTPDownload()
+    {
+        reply = nullptr;
+    }
+    QNetworkReply* reply;
+    QString localPath;
 public slots:
-	void saveFileData();
+    void saveFileData();
 signals:
-	void finish(bool succceed);
+    void finish(bool succceed);
 };
 */
 #endif // HTTP_MANAGER_H
