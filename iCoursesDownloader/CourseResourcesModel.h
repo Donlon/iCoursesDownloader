@@ -5,6 +5,12 @@
 
 class CourseResourcesModel : public QAbstractItemModel{
 public:
+    enum FilterType{
+        All,
+        Videos,
+        Documents,
+        Others
+    };
     CourseResourcesModel(CourseResourcesTree* root, QObject* parent = 0);
 
     Qt::ItemFlags flags(const QModelIndex& index) const;
@@ -16,5 +22,8 @@ public:
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex& index) const;
 
+    void applyFilterType(FilterType type);
     CourseResourcesTree *treeRoot;
+private:
+    FilterType filterType;
 };

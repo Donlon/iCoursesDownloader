@@ -20,7 +20,9 @@ void CourseResourcesManager::appendResources(Course* course){
         charptersJsonParser.parse(course->resLocalPaths[i]);
 
         treeList.append(charptersJsonParser.resultTreeNode);
-        modelsList.append(new CourseResourcesModel(charptersJsonParser.resultTreeNode));
+        CourseResourcesModel *m = new CourseResourcesModel(charptersJsonParser.resultTreeNode);
+        m->applyFilterType(CourseResourcesModel::FilterType::Videos);
+        modelsList.append(m);
     }
         
     g_data.insert(course->id, treeList);

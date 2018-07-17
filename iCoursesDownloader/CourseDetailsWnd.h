@@ -23,12 +23,14 @@ protected:
 protected slots:
     void resourcesList_ctxMenu(QPoint pos);
     void menu_download();
+    void menu_copyLink();
     void btn_t1(){resourcesSortChange(0);}
     void btn_t2(){resourcesSortChange(1);}
     void btn_t3(){resourcesSortChange(2);}
     void btn_t4(){resourcesSortChange(3);}
     void btn_export();
     void btn_rename();
+    void cbx_typeFilter(int index);
 signals:
     void closed();
 private:
@@ -36,7 +38,7 @@ private:
     QMenu *resourcesListMenu;
 
     QModelIndex treeListMenuTriggeredAt;
-    //CourseResourcesSelectionModel *listSelectionModel;
+    CourseResourcesModel *currentListModel;
     CourseResourcesSelectionModel *listSelectionModel;
     int selectedSort;
 };

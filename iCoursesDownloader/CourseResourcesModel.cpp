@@ -2,7 +2,8 @@
 #include "CourseResourcesModel.h"
 
 
-CourseResourcesModel::CourseResourcesModel(CourseResourcesTree* root, QObject* parent) : QAbstractItemModel(parent){
+CourseResourcesModel::CourseResourcesModel(CourseResourcesTree* root, QObject* parent)
+    : QAbstractItemModel(parent), filterType(FilterType::All){
     treeRoot = root;
 }
 
@@ -67,11 +68,30 @@ int CourseResourcesModel::rowCount(const QModelIndex& parent) const{
     else
         parentNode = static_cast<CourseResourcesTree*>(parent.internalPointer());
 
-    return parentNode->childrenList.size();
+    parentNode->showableChildrenList.clear();
+    foreach(CourseResourcesTree* subNode, parentNode->childrenList){
+        if(filterType == FilterType::All){
+            parentNode->showableChildrenList.append(subNode);
+            continue;
+        }
+
+        if(subNode->type == CourseResourcesTree::ItemType::Folder){
+            parentNode->showableChildrenList.append(subNode);
+        }
+        if(subNode->type == CourseResourcesTree::ItemType::Video && filterType == FilterType::Videos){
+            parentNode->showableChildrenList.append(subNode);
+        }
+        if(subNode->type == CourseResourcesTree::ItemType::Document && filterType == FilterType::Documents){
+            parentNode->showableChildrenList.append(subNode);
+        }
+        if(subNode->type == CourseResourcesTree::ItemType::Other && filterType == FilterType::Others){
+            parentNode->showableChildrenList.append(subNode);
+        }
+    }
+    return parentNode->showableChildrenList.size();
 }
 
-int CourseResourcesModel::columnCount(const QModelIndex& parent) const
-{
+int CourseResourcesModel::columnCount(const QModelIndex& parent) const{
     return 3;
 }
 
@@ -83,12 +103,12 @@ QModelIndex CourseResourcesModel::index(int row, int column, const QModelIndex& 
     else
         parentNode = static_cast<CourseResourcesTree*>(parent.internalPointer());
 
-    if(parentNode->childrenList.empty()){
+    if(parentNode->showableChildrenList.empty()){
         return QModelIndex();
     }
 
-    Q_ASSERT(row < parentNode->childrenList.size());
-    return createIndex(row, column, parentNode->childrenList.at(row));
+    Q_ASSERT(row < parentNode->showableChildrenList.size());
+    return createIndex(row, column, parentNode->showableChildrenList.at(row));
 }
 
 QModelIndex CourseResourcesModel::parent(const QModelIndex& index) const{
@@ -105,4 +125,9 @@ QModelIndex CourseResourcesModel::parent(const QModelIndex& index) const{
     CourseResourcesTree* grandParentObject = parentNode->parent;
 
     return createIndex(grandParentObject->childrenList.indexOf(parentNode), 0, parentNode);
+}
+
+void CourseResourcesModel::applyFilterType(FilterType type){
+    filterType = type;
+    //TODO: emit reflush signal
 }

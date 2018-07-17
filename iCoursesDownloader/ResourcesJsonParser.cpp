@@ -57,8 +57,6 @@ void ResourcesJsonParser::parse(QString filePath){
     resultTreeNode = rootTree;
 }
 
-
-
 //TODO: report invalidated items
 void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, CourseResourcesTree *parentNode, int depth){
 
@@ -119,7 +117,7 @@ void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, Course
 
                     fileNode->visualName = QString("%1. ").arg(resNo) + resObj.value("title").toString();
                     fileNode->resUrl = resObj.value("fullResUrl").toString();
-                    fileNode->size = resObj.value("resSize").toString().toInt();
+                    fileNode->setSize(resObj.value("resSize").toString().toInt());
                     fileNode->depth = depth + 1;
 
                     if(resObj.value("mediaType").toString() == "mp4"){

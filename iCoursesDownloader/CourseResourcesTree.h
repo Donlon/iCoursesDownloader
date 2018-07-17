@@ -4,8 +4,7 @@
 
 class CourseResourcesTree{
 public:
-    enum ItemType
-    {
+    enum ItemType{
         Folder,
         Video,
         Document,
@@ -27,7 +26,7 @@ public:
     ~CourseResourcesTree(void);
 
     void clearChildrenSelection();
-    void setFileSize(int bytes);
+    void setSize(int bytes);
 
     CourseResourcesTree *parent;
     int depth;
@@ -41,6 +40,8 @@ public:
     int size;//TODO: function implementation of setSize(int)
     QString sizeStr;
     QString resUrl;
+
+    QList<CourseResourcesTree*> showableChildrenList;
 
 protected:
     void addChild(CourseResourcesTree *child);

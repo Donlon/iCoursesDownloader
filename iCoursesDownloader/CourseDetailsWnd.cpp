@@ -5,6 +5,7 @@
 #include <QJsonValue>
 #include <QStandardItemModel>
 #include <QJsonParseError>
+#include <QClipboard>
 
 #include "DataManager.h"
 #include "ResourcesJsonParser.h"
@@ -13,14 +14,12 @@
 #include "CourseResourcesSelectionModel.h"
 #include "CourseResourcesTreeDFS.h"
 
-CourseDetailsWnd::CourseDetailsWnd(QWidget* parent) : QMainWindow(parent){
+CourseDetailsWnd::CourseDetailsWnd(QWidget* parent) : QMainWindow(parent), currentListModel(nullptr){
     ui.setupUi(this);
     ui.tv_title->setTextInteractionFlags(Qt::TextSelectableByMouse);
     ui.tv_school->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
     resourcesListMenu = new QMenu();
-    QAction *lw_action1 = resourcesListMenu->addAction("&Download");
-    connect(lw_action1, &QAction::triggered, this, &CourseDetailsWnd::menu_download);
 }
 
 void CourseDetailsWnd::showEvent(QShowEvent* event){
@@ -44,8 +43,8 @@ void CourseDetailsWnd::showEvent(QShowEvent* event){
 }
 void CourseDetailsWnd::resourcesSortChange(int sort){
     selectedSort = sort;
-
-    ui.tv_courseDetails->setModel(CourseResourcesManager::getListModel(courseModel->courseInfo->id, sort));
+    currentListModel = CourseResourcesManager::getListModel(courseModel->courseInfo->id, sort);
+    ui.tv_courseDetails->setModel(currentListModel);
     ui.tv_courseDetails->setColumnWidth(0, 450);
 }
 
@@ -57,6 +56,16 @@ void CourseDetailsWnd::resourcesList_ctxMenu(QPoint pos){
     }
 
     treeListMenuTriggeredAt = index;
+
+    resourcesListMenu->clear();
+
+    QAction *lw_action1 = resourcesListMenu->addAction("&Download");
+    connect(lw_action1, &QAction::triggered, this, &CourseDetailsWnd::menu_download);
+    if(static_cast<CourseResourcesTree*>(treeListMenuTriggeredAt.internalPointer())->type != CourseResourcesTree::Folder){
+        QAction *lw_action2 = resourcesListMenu->addAction("&Copy link");
+        connect(lw_action2, &QAction::triggered, this, &CourseDetailsWnd::menu_copyLink);
+    }
+
     resourcesListMenu->exec(QCursor::pos());
 }
 
@@ -72,6 +81,14 @@ void CourseDetailsWnd::menu_download(){
     //listSelectionModel->select(treeListMenuTriggeredAt->parent(), QItemSelectionModel::Select);
 
     treeListMenuTriggeredAt = QModelIndex();
+}
+
+void CourseDetailsWnd::menu_copyLink(){
+    QApplication::clipboard()->setText(static_cast<CourseResourcesTree*>(treeListMenuTriggeredAt.internalPointer())->resUrl);
+}
+
+void CourseDetailsWnd::cbx_typeFilter(int index){
+    currentListModel->applyFilterType(CourseResourcesModel::FilterType::Videos);
 }
 
 void CourseDetailsWnd::btn_export(){

@@ -120,6 +120,11 @@
       <string>Documents</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Others</string>
+     </property>
+    </item>
    </widget>
    <widget class="QTreeView" name="tv_courseDetails">
     <property name="geometry">

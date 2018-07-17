@@ -10,8 +10,7 @@ void CourseResourcesTree::clearChildrenSelection(){
         child->clearChildrenSelection();
     }
 }
-void CourseResourcesTree::setFileSize(int bytes) {
-    size = bytes;
+void CourseResourcesTree::setSize(int bytes) {
     static QStringList unitStr;
     unitStr << "B" << "KB" << "MB" << "GB";
     int level = 0;
@@ -20,6 +19,7 @@ void CourseResourcesTree::setFileSize(int bytes) {
         bytesFloat /= 1024.0f;
         level++;
     }
+    size = bytes;
     sizeStr = ("%1 " + unitStr.at(level)).arg(bytesFloat);
     //return ("%1 " + unitStr.at(level)).arg(bytesFloat);
 }
