@@ -1,12 +1,11 @@
-#ifndef MAINWND_H
-#define MAINWND_H
-
+#pragma once
 #include <QtWidgets/QMainWindow>
-#include "ui_mainwnd.h"
 
 #include "CoursesWnd.h"
 #include "SettingsWnd.h"
 #include "DownloaderWnd.h"
+
+#include "ui_mainwnd.h"
 
 class MainWnd : public QMainWindow{
     Q_OBJECT
@@ -23,5 +22,3 @@ public:
 private:
     Ui::MainWndClass ui;
 };
-
-#endif // MAINWND_H

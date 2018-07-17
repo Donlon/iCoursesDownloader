@@ -1,5 +1,8 @@
 #include "CourseResourcesTree.h"
 
+CourseResourcesTree::~CourseResourcesTree(void)
+{
+}
 
 void CourseResourcesTree::clearChildrenSelection(){
     foreach(CourseResourcesTree *child, childrenList){
@@ -7,7 +10,22 @@ void CourseResourcesTree::clearChildrenSelection(){
         child->clearChildrenSelection();
     }
 }
+void CourseResourcesTree::setFileSize(int bytes) {
+    size = bytes;
+    static QStringList unitStr;
+    unitStr << "B" << "KB" << "MB" << "GB";
+    int level = 0;
+    float bytesFloat = bytes;
+    while (level<unitStr.size() && bytesFloat >= 1024.0f) {
+        bytesFloat /= 1024.0f;
+        level++;
+    }
+    sizeStr = ("%1 " + unitStr.at(level)).arg(bytesFloat);
+    //return ("%1 " + unitStr.at(level)).arg(bytesFloat);
+}
 
-CourseResourcesTree::~CourseResourcesTree(void)
-{
+void CourseResourcesTree::addChild(CourseResourcesTree *child) {
+    if (!childrenList.contains(child)) {
+        childrenList.append(child);
+    }
 }

@@ -123,7 +123,6 @@
     <ClCompile Include="datatypes.cpp" />
     <ClCompile Include="DownloaderWnd.cpp" />
     <ClCompile Include="http_manager.cpp" />
-    <ClCompile Include="icourse_apimanager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwnd.cpp" />
     <ClCompile Include="ResourcesJsonParser.cpp" />
@@ -172,7 +171,6 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="datatypes.h" />
     <ClInclude Include="HttpManager.h" />
-    <ClInclude Include="icourse_apimanager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="ResourcesJsonParser.h" />

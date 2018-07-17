@@ -141,23 +141,3 @@ void ResourcesJsonParser::recursionParseObject(QJsonArray &jsonArrayNode, Course
     }
     
 }
-
-/*QTreeWidgetItem* convertJsonItemToWidgetItem(QJsonObject &json){
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, json.value("title").toString());
-    item->setText(1, json.value("title").toString());
-}
-*/
-
-
-QString ResourcesJsonParser::fileSizeToString(int bytes){
-    static QStringList unitStr;
-    unitStr<<"B"<<"KB"<<"MB"<<"GB";
-    int level = 0;
-    float bytesFloat = bytes;
-    while(level<unitStr.size()&&bytesFloat>=1024.0f){
-        bytesFloat/=1024.0f;
-        level++;
-    }
-    return ("%1 " + unitStr.at(level)).arg(bytesFloat);
-}

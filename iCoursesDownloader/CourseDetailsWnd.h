@@ -1,13 +1,14 @@
 #pragma once
-
 #include <QtWidgets/QMainWindow>
 #include <QCloseEvent>
 #include <QMenu>
 #include <QMainWindow>
-#include "ui_course_details.h"
+
 #include "datatypes.h"
 #include "CourseResourcesSelectionModel.h"
 #include "CourseResourcesManager.h"
+
+#include "ui_course_details.h"
 
 class CourseDetailsWnd : public QMainWindow
 {

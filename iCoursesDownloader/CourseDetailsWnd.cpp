@@ -1,6 +1,3 @@
-#include "CourseDetailsWnd.h"
-#include <QFileSystemModel>
-#include <QStyledItemDelegate>
 #include <QFileDialog>
 #include <QTextCodec>
 #include <QTextStream>
@@ -11,11 +8,12 @@
 
 #include "DataManager.h"
 #include "ResourcesJsonParser.h"
+#include "CourseDetailsWnd.h"
 #include "CourseResourcesModel.h"
 #include "CourseResourcesSelectionModel.h"
 #include "CourseResourcesTreeDFS.h"
 
-CourseDetailsWnd::CourseDetailsWnd(QWidget* parent)    : QMainWindow(parent){
+CourseDetailsWnd::CourseDetailsWnd(QWidget* parent) : QMainWindow(parent){
     ui.setupUi(this);
     ui.tv_title->setTextInteractionFlags(Qt::TextSelectableByMouse);
     ui.tv_school->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -70,14 +68,15 @@ void CourseDetailsWnd::menu_download(){
     //treeListMenuTriggeredAt->data();
     //ui.tv_courseDetails->selectionModel()->select(treeListMenuTriggeredAt->parent(), QItemSelectionModel::Select);
 
-    QItemSelectionModel *listSelectionModel = ui.tv_courseDetails->selectionModel();
+    //QItemSelectionModel *listSelectionModel = ui.tv_courseDetails->selectionModel();
     //listSelectionModel->select(treeListMenuTriggeredAt->parent(), QItemSelectionModel::Select);
 
     treeListMenuTriggeredAt = QModelIndex();
 }
 
 void CourseDetailsWnd::btn_export(){
-    CourseResourcesDFS_Start(CourseResourcesManager::getResourcesTree(courseModel->courseInfo->id, selectedSort)){
+    CourseResourcesDFS_Start(CourseResourcesManager::getResourcesTree(courseModel->courseInfo->id, selectedSort),
+                             stack, treeStack, depth){
 
         QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
         const QString fileName = QFileDialog::getSaveFileName(this,
@@ -90,7 +89,7 @@ void CourseDetailsWnd::btn_export(){
         QTextStream fileOutStream(&file);
 
         CourseResourcesDFS_A{
-            if(_DFS_treeStack[_DFS_depth]->type == CourseResourcesTree::Document){//Luckly got what we need
+            if(treeStack[depth]->type == CourseResourcesTree::Document){//Luckly got what we need
                 //Do something about tree tips
                 /*int d=depth;
                 while(d-->0){
@@ -98,10 +97,10 @@ void CourseDetailsWnd::btn_export(){
                 }
                 fileOutStream<<treeStack[depth]->visualName;
                 fileOutStream<<"\r\n";*/
-                fileOutStream<<_DFS_treeStack[_DFS_depth]->resUrl;
+                fileOutStream<<treeStack[depth]->resUrl;
                 fileOutStream<<"\r\n";
 
-                _DFS_stack[_DFS_depth]++;
+                _DFS_stack[depth]++;
                 continue;
             }
         }CourseResourcesDFS_Folder{
@@ -113,7 +112,8 @@ void CourseDetailsWnd::btn_export(){
 
 void CourseDetailsWnd::btn_rename(){
 
-    CourseResourcesDFS_Start(CourseResourcesManager::getResourcesTree(courseModel->courseInfo->id, selectedSort)){
+    CourseResourcesDFS_Start(CourseResourcesManager::getResourcesTree(courseModel->courseInfo->id, selectedSort),
+                             stack, treeStack, depth){
 
         QString baseDir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                         "",
@@ -122,15 +122,15 @@ void CourseDetailsWnd::btn_rename(){
             //qDebug()<<"Checking "<<baseDir % treeStack[depth]->resUrl.rightRef(
             //                                 treeStack[depth]->resUrl.size() - treeStack[depth]->resUrl.lastIndexOf('/'));
             QFile file(baseDir
-                %_DFS_treeStack[_DFS_depth]->resUrl.rightRef(
-                                _DFS_treeStack[_DFS_depth]->resUrl.size() - _DFS_treeStack[_DFS_depth]->resUrl.lastIndexOf('/')));
+                %treeStack[depth]->resUrl.rightRef(
+                                treeStack[depth]->resUrl.size() - treeStack[depth]->resUrl.lastIndexOf('/')));
             if(file.exists()){
                 QString dest = baseDir;
-                if(_DFS_treeStack[_DFS_depth]->type == CourseResourcesTree::Document){
+                if(treeStack[depth]->type == CourseResourcesTree::Document){
                     dest.append("/Doc");
                 }
-                for(int i = 1; i <= _DFS_depth; i++){
-                    if(i == _DFS_depth){
+                for(int i = 1; i <= depth; i++){
+                    if(i == depth){
                         QDir dir;
                         if (!dir.exists(dest)){
                             if(!dir.mkpath(dest)){
@@ -139,9 +139,9 @@ void CourseDetailsWnd::btn_rename(){
                         }
                     }
                     dest.append(QChar('\\'));
-                    dest.append(_DFS_treeStack[i]->visualName);
+                    dest.append(treeStack[i]->visualName);
                 }
-                dest.append(_DFS_treeStack[_DFS_depth]->resUrl.rightRef(_DFS_treeStack[_DFS_depth]->resUrl.size() - _DFS_treeStack[_DFS_depth]->resUrl.lastIndexOf('.')));
+                dest.append(treeStack[depth]->resUrl.rightRef(treeStack[depth]->resUrl.size() - treeStack[depth]->resUrl.lastIndexOf('.')));
                 //qDebug()<<" Dest: "<<dest;
                 file.rename(dest);
             }

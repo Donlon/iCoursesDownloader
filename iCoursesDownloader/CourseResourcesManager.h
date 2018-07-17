@@ -1,11 +1,11 @@
 #pragma once
-#include <qmap.h>
+#include <QMap>
+
 #include "CourseResourcesTree.h"
 #include "datatypes.h"
 #include "CourseResourcesModel.h"
 
-namespace CourseResourcesManager
-{
+namespace CourseResourcesManager{
     void loadResources(QList<CourseModel*> *courseModelList);
     void appendResources(CourseModel* model);
     bool loadSucceed();

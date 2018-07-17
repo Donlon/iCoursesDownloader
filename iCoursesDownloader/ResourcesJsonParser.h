@@ -1,8 +1,8 @@
 #pragma once
 #include <QTreeWidget>
 #include <QStringBuilder>
+
 #include "CourseResourcesTree.h"
-class QString;
 
 class ResourcesJsonParser
 {
@@ -20,7 +20,5 @@ public:
 protected:
     QString m_errorText;
     void onParseError(QString errorText);
-    static QString fileSizeToString(int bytes);
-
 };
 

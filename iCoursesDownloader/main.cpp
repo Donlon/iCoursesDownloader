@@ -1,10 +1,11 @@
-#include "mainwnd.h"
 #include <QtWidgets/QApplication>
 
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
 #include <iostream>
+
+#include "mainwnd.h"
 
 void initializeConsole() {
     AllocConsole();
@@ -22,7 +23,7 @@ void initializeConsole() {
 }
 
 int main(int argc, char *argv[]) {
-    //    initializeConsole();
+    //initializeConsole();
 
     QApplication a(argc, argv);
 

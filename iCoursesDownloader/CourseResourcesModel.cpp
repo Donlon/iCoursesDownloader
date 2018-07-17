@@ -1,4 +1,3 @@
-#include <QMetaObject>
 #include "mainwnd.h"
 #include "CourseResourcesModel.h"
 
@@ -33,7 +32,7 @@ QVariant CourseResourcesModel::data(const QModelIndex& index, int role) const{
                 return QString("Other");//TODO: static string
             }
         case 2:
-            return QString("Col: %1, Row:%2").arg(index.row()).arg(index.column());
+            return static_cast<CourseResourcesTree*>(index.internalPointer())->sizeStr;
         default:
             break;
         }
@@ -51,7 +50,7 @@ QVariant CourseResourcesModel::headerData(int section, Qt::Orientation orientati
     case 1:
         return QString("Type");
     case 2:
-        return QString("Ds");
+        return QString("Size");
     default:
         return QVariant();
     }

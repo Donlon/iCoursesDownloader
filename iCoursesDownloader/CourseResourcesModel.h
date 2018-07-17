@@ -1,9 +1,9 @@
 #pragma once
 #include <QAbstractItemModel>
+
 #include "CourseResourcesTree.h"
 
-class CourseResourcesModel : public QAbstractItemModel
-{
+class CourseResourcesModel : public QAbstractItemModel{
 public:
     CourseResourcesModel(CourseResourcesTree* root, QObject* parent = 0);
 
@@ -17,7 +17,4 @@ public:
     QModelIndex parent(const QModelIndex& index) const;
 
     CourseResourcesTree *treeRoot;
-private:
-    //QObject* m_root;
-
 };

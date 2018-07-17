@@ -1,4 +1,5 @@
 #include <QMenu>
+
 #include "CoursesWnd.h"
 #include "DataManager.h"
 

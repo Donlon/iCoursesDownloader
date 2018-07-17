@@ -2,11 +2,8 @@
 #define ADDCOURSEDLG_H
 
 #include <QtWidgets/QDialog>
-#include <QCloseEvent>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include "ui_add_course.h"
-
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -16,6 +13,7 @@
 
 #include "datatypes.h"
 #include "HttpManager.h"
+#include "ui_add_course.h"
 
 class HTTPManager;
 class Course;

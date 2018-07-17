@@ -2,9 +2,7 @@
 #include "qitemselectionmodel.h"
 #include "CourseResourcesModel.h"
 
-class CourseResourcesSelectionModel :
-    public QItemSelectionModel
-{
+class CourseResourcesSelectionModel : public QItemSelectionModel{
 public:
     explicit CourseResourcesSelectionModel(CourseResourcesModel *model = 0): QItemSelectionModel(model), model(model), treeRoot(model->treeRoot){;};
     explicit CourseResourcesSelectionModel(CourseResourcesModel *model, QObject *parent): QItemSelectionModel(model, parent){;};

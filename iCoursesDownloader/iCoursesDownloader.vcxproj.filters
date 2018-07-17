@@ -63,9 +63,6 @@
     <ClCompile Include="http_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="icourse_apimanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mainwnd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,9 +156,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HttpManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="icourse_apimanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
